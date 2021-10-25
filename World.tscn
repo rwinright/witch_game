@@ -1,0 +1,106 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/Backgrounds/parallax-mountain-bg.png" type="Texture" id=2]
+[ext_resource path="res://assets/Backgrounds/parallax-mountain-montain-far.png" type="Texture" id=3]
+[ext_resource path="res://assets/Backgrounds/parallax-mountain-foreground-trees.png" type="Texture" id=4]
+[ext_resource path="res://assets/Backgrounds/parallax-mountain-mountains.png" type="Texture" id=5]
+[ext_resource path="res://assets/Backgrounds/parallax-mountain-trees.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/ParallaxBackground.gd" type="Script" id=7]
+[ext_resource path="res://assets/Vampirebat.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 24, 16 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 8 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 8.0
+} ]
+
+[node name="World" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource( 7 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0, 1 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( -3.63798e-12, -2.27374e-13 )
+scale = Vector2( 3.76471, 3.7 )
+texture = ExtResource( 2 )
+
+[node name="Back_Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.2, 1 )
+motion_mirroring = Vector2( 2040, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Back_Mountains"]
+position = Vector2( -4.57764e-05, -3.8147e-06 )
+scale = Vector2( 3.76471, 3.7 )
+texture = ExtResource( 3 )
+
+[node name="Front_Mountains" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.3, 1 )
+motion_mirroring = Vector2( 2040, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Front_Mountains"]
+position = Vector2( -3.63798e-12, -2.27374e-13 )
+scale = Vector2( 3.76471, 3.7 )
+texture = ExtResource( 5 )
+
+[node name="Back_Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.4, 1 )
+motion_mirroring = Vector2( 2040, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Back_Trees"]
+position = Vector2( -4.57764e-05, -3.8147e-06 )
+scale = Vector2( 3.76471, 3.7 )
+texture = ExtResource( 4 )
+
+[node name="Front_Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2040, 0 )
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Front_Trees"]
+position = Vector2( -4.57764e-05, -3.8147e-06 )
+scale = Vector2( 3.76471, 3.7 )
+texture = ExtResource( 6 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( -401.404, -208.039 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Bat" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bat"]
+position = Vector2( 0, -8 )
+shape = SubResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Bat"]
+frames = SubResource( 7 )
+playing = true
